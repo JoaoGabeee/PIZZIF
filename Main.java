@@ -1,4 +1,4 @@
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.util.*;
 
 
@@ -43,7 +43,24 @@ public class Main {
         ciadadeUsuario = JOptionPane.showInputDialog("Qual sua cidade?");
         ruaUsuario = JOptionPane.showInputDialog("Qual sua rua?");
         numeroCasaUsuario = JOptionPane.showInputDialog("Qual o numero da sua casa?");
-        senhaUsuario = JOptionPane.showInputDialog("Qual a senha do seu cadastro?");
+
+        JPanel painel = new JPanel();
+        JLabel textoSenha = new JLabel("Qual a senha: ");
+        JPasswordField entradaSenha = new JPasswordField(10);
+
+        painel.add(textoSenha);
+        painel.add(entradaSenha);
+        int escolha = JOptionPane.showConfirmDialog(null, painel);
+        senhaUsuario = String.valueOf(entradaSenha.getPassword());
+        switch (escolha){
+
+            case JOptionPane.NO_OPTION -> {
+                int simNao = JOptionPane.showConfirmDialog(null, "Deseja sair?");
+
+                if (simNao == JOptionPane.YES_NO_OPTION) return;
+
+            }
+        }
 
         LinkedHashMap<String, String> usuario = new LinkedHashMap<>();
         usuario.put("nome", nomeUsuario);
@@ -52,9 +69,6 @@ public class Main {
         usuario.put("casa", numeroCasaUsuario);
         usuario.put("senha", senhaUsuario);
 
-        for (var valor : usuario.values()) {
-            System.out.printf(valor);
-        }
         TesteArquivo.anexarAoArquivo(usuario);
     }
 
