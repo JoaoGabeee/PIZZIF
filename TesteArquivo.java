@@ -1,30 +1,41 @@
+import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 
+
 public class TesteArquivo {
-    public static void main(String[] args) {
-        File arquivo = new File("TesteArquivo.txt");
-        LinkedHashMap<String, String> infos = new LinkedHashMap<>();
+
+    static String testeArquivo = "TesteArquivo.csv";
+    private static final File ARQUIVO = new File(testeArquivo);
+
+    public static void criarArquivo() {
+        try (FileWriter escreverCabecalhos = new FileWriter(testeArquivo, false)) {
+            ARQUIVO.createNewFile();
+            String[] cabecalhos = {"nome", "cidade", "rua", "casa", "senha"};
 
 
-        try (FileWriter fileWriter = new FileWriter(arquivo, false)) {
-            arquivo.createNewFile();
+            escreverCabecalhos.write(String.join(";", cabecalhos));
+            escreverCabecalhos.write("\n");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Erro");
+            e.printStackTrace();
+        }
+    }
 
-            for (var info : infos.values()) {
-                fileWriter.append(info);
+    public static void anexarAoArquivo(LinkedHashMap<String, String> info) {
+
+        try (FileWriter escreverParaArquivo = new FileWriter(testeArquivo, true)) {
+
+            for (String valor : info.values()) {
+                escreverParaArquivo.write(valor + ";");
             }
 
-            fileWriter.append('\n');
         } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "ERRO");
             e.printStackTrace();
         }
 
-    }
-
-    static void anexarAoarquivo(LinkedHashMap<String, String> info) {
-
-        for (var i : info.values()) System.out.println(i);
     }
 }

@@ -8,6 +8,7 @@ public class Main {
 
 
     public static void main(String[] args) {
+        TesteArquivo.criarArquivo();
         String[] array = {"Cadastrar", "Entrar", "Continuar anonimo", "Sair"};
 
         String resposta = (String) JOptionPane.showInputDialog(
@@ -54,7 +55,7 @@ public class Main {
         for (var valor : usuario.values()) {
             System.out.printf(valor);
         }
-        TesteArquivo.anexarAoarquivo(usuario);
+        TesteArquivo.anexarAoArquivo(usuario);
     }
 
     static void cardapioPizzif() {
